@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "793486499410",
+    "project_id": "moviles-659f9",
+    "storage_bucket": "moviles-659f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793486499410:android:706244074ad3d947df098b",
+        "android_client_info": {
+          "package_name": "com.example.moviles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793486499410-icuuu5jdmv4k2lumcqhk0t73ki0ccops.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzkry70uLhJ3wTuv3C-mxibY86l3Y261g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793486499410-icuuu5jdmv4k2lumcqhk0t73ki0ccops.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
