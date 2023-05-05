@@ -104,7 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void editarPersona(View view) {
 
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, editarInformacionPersonal.class);
         startActivity(intent);
     }
 
