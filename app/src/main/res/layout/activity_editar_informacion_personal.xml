@@ -131,12 +131,11 @@
         android:layout_marginTop="150dp"
         android:text="@string/editar_intereses"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloEditar"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/editarTitulo"
+        tools:ignore="MissingConstraints,UnknownId" />
 
     <Button
         android:id="@+id/actualizarCuenta"
@@ -144,6 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:backgroundTint="#40CFFF"
+        android:onClick="actualizarInformacionPersonal"
         android:text="@string/actualizar"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -156,6 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:backgroundTint="#40CFFF"
+        android:onClick="eliminarCuenta"
         android:text="@string/eliminar_cuenta"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -163,7 +164,7 @@
         app:layout_constraintStart_toEndOf="@+id/actualizarCuenta" />
 
     <TextView
-        android:id="@+id/tituloEditar"
+        android:id="@+id/editarTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
