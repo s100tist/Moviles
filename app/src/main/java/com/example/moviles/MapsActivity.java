@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.moviles.databinding.ActivityMapsBinding;
+import com.example.moviles.models.Usuario;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,6 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private Usuario usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +42,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Map<String, Object> user = new HashMap<>();
-        user.put("lat", 100);
-        user.put("lon", 10);
-        db.collection("Usuarios").add(user);
+        Map<String, Object> ubicacion = new HashMap<>();
+        ubicacion.put("lat", 500);
+        ubicacion.put("lon", 200);
+        Map<String, Object> ubicacionEmergencia = new HashMap<>();
+        usuario = new Usuario("JJF", "correo@gmail.com","contrasena", ubicacion, ubicacionEmergencia );
+        db.collection("Usuarios").add(usuario);
 
 
     }
