@@ -1,11 +1,13 @@
 package com.example.moviles;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -40,10 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Map<String, Object> user = new HashMap<>();
-        user.put("lat", 100);
-        user.put("lon", 10);
-        db.collection("Usuarios").add(user);
+
 
 
     }
@@ -60,6 +59,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        Map<String, Object> user = new HashMap<>();
+        user.put("lat", 100);
+        user.put("lon", 10);
+        db.collection("Usuarios").add(user);
 
         // Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
@@ -102,5 +105,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         };
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
+    }
+
+
+
+
+
+
+    public void editarPersona(View view) {
+
+        Intent intent = new Intent(this, editarInformacionPersonal.class);
+        startActivity(intent);
+    }
+
+    public void botonPanico(View view) {
     }
 }
