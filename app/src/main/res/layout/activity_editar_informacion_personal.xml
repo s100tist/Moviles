@@ -6,51 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".editarInformacionPersonal">
 
-    <CheckBox
-        android:id="@+id/checkDeportes2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:text="@string/editar_deportes_2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/checkDeportes1"
-        app:layout_constraintEnd_toStartOf="@+id/checkDeportes3"
-        app:layout_constraintStart_toEndOf="@+id/checkDeportes1"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/checkDeportes3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:minHeight="48dp"
-        android:text="@string/editar_deportes_3"
-        app:layout_constraintBaseline_toBaselineOf="@+id/checkDeportes2"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/editarDeportes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="100dp"
-        android:text="@string/editarDeportes"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editarMusica"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/checkDeportes1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:minHeight="48dp"
-        android:text="@string/editar_deportes_1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editarDeportes" />
 
     <TextView
         android:id="@+id/editarNombre"
@@ -78,51 +33,7 @@
         app:layout_constraintStart_toEndOf="@+id/editarNombre"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/editarMusica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="120dp"
-        android:text="@string/editar_musica"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editarNombre"
-        tools:ignore="MissingConstraints" />
 
-    <CheckBox
-        android:id="@+id/checkMusica2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:text="@string/editar_musica_2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/checkMusica1"
-        app:layout_constraintEnd_toStartOf="@+id/checkMusica3"
-        app:layout_constraintStart_toEndOf="@+id/checkMusica1"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/checkMusica3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:minHeight="48dp"
-        android:text="@string/editar_musica_3"
-        app:layout_constraintBaseline_toBaselineOf="@+id/checkMusica2"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/checkMusica1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:minHeight="48dp"
-        android:text="@string/editar_musica_1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editarMusica" />
 
     <TextView
         android:id="@+id/editarIntereses"
@@ -136,6 +47,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editarTitulo"
         tools:ignore="MissingConstraints,UnknownId" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/editarIntereses"
+        app:layout_constraintBottom_toTopOf="@+id/actualizarCuenta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layoutIntereses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+    </ScrollView>
+
 
     <Button
         android:id="@+id/actualizarCuenta"
