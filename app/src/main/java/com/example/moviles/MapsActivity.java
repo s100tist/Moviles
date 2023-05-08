@@ -1,5 +1,7 @@
 package com.example.moviles;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -36,13 +40,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -50,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     Dialog dialog;
 
-    private Marker mMarker;
+    private List<Marker> mMarkerList = new ArrayList<>();
     private Usuario usuario;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -100,7 +108,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        mMap.getUiSettings().setAllGesturesEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(true);
 
         LocationManager locationManager = (LocationManager) MapsActivity.this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
@@ -109,26 +117,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onLocationChanged(Location location) {
                 mMap.getUiSettings().setRotateGesturesEnabled(true);
                 LatLng miUbicacion = new LatLng(location.getLatitude(), location.getLongitude());
-                db.collection("Usuarios").get()
-                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                    Map<String, Object> data = documentSnapshot.getData();
-                                    if (data.containsKey("ubicacion")) {
-                                        Map<String, Double> ubicacion = (Map<String, Double>) data.get("ubicacion");
-                                        double latitud = ubicacion.get("lat");
-                                        double longitud = ubicacion.get("lon");
-                                        LatLng latLng = new LatLng(latitud, longitud);
-                                        if (mMarker == null) {
-                                            mMarker = mMap.addMarker(new MarkerOptions().position(latLng));
-                                        } else {
-                                            mMarker.setPosition(latLng);
-                                        }
-                                    }
-                                }
+                db.collection("Usuarios").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Error al obtener los usuarios", e);
+                            return;
+                        }
+                        // Eliminar todos los marcadores existentes
+                        for (Marker marker : mMarkerList) {
+                            marker.remove();
+                        }
+                        mMarkerList.clear();
+
+                        // Agregar los marcadores de los usuarios
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            Map<String, Object> data = documentSnapshot.getData();
+                            if (data.containsKey("ubicacion")) {
+                                Map<String, Double> ubicacion = (Map<String, Double>) data.get("ubicacion");
+                                double latitud = ubicacion.get("lat");
+                                double longitud = ubicacion.get("lon");
+                                LatLng latLng = new LatLng(latitud, longitud);
+                                Marker marker = mMap.addMarker(new MarkerOptions().position(latLng));
+                                mMarkerList.add(marker);
                             }
-                        });
+                        }
+                    }
+                });
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(miUbicacion)
@@ -141,7 +156,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ubicacion.put("lat", location.getLatitude());
                 ubicacion.put("lon", location.getLongitude());
                 Map<String, Object> ubicacionEmergencia = new HashMap<>();
-                usuario = new Usuario("JJF", "correo@gmail.com","contrasena", ubicacion, ubicacionEmergencia );
+                usuario = new Usuario("corvo", "corvo@gmail.com","contrasena", ubicacion, ubicacionEmergencia );
                 Query query = db.collection("Usuarios").whereEqualTo("correoUsuario", usuario.getCorreoUsuario());
                 query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
