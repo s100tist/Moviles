@@ -22,16 +22,22 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.moviles.databinding.ActivityMapsBinding;
+import com.example.moviles.models.Usuario;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
@@ -42,6 +48,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     Dialog dialog;
+
+    private Usuario usuario;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -70,10 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Map<String, Object> user = new HashMap<>();
-        user.put("lat", 100);
-        user.put("lon", 10);
-        db.collection("Usuarios").add(user);
+
 
         // Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
@@ -102,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onLocationChanged(Location location) {
                 mMap.getUiSettings().setRotateGesturesEnabled(true);
                 LatLng miUbicacion = new LatLng(location.getLatitude(), location.getLongitude());
-                //mMap.addMarker(new MarkerOptions().position(miUbicacion).title("ubicacion actual"));
+                mMap.addMarker(new MarkerOptions().position(miUbicacion).title("ubicacion actual"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(miUbicacion)
@@ -111,7 +116,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .tilt(60)
                         .build();
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
+                Map<String, Object> ubicacion = new HashMap<>();
+                ubicacion.put("lat", location.getLatitude());
+                ubicacion.put("lon", location.getLongitude());
+                Map<String, Object> ubicacionEmergencia = new HashMap<>();
+                usuario = new Usuario("JJF", "correo@gmail.com","contrasena", ubicacion, ubicacionEmergencia );
+                Query query = db.collection("usuarios").whereEqualTo("correoUsuario", usuario.getCorreoUsuario());
+                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                            Map<String, Object> updates = new HashMap<>();
+                            Map<String, Object> ubicacion = new HashMap<>();
+                            ubicacion.put("lat", location.getLatitude());
+                            ubicacion.put("lon", location.getLongitude());
+                            updates.put("ubicacion", ubicacion);
+                            documentSnapshot.getReference().update(ubicacion);
+                        }
+                    }
+                });
             }
         };
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
