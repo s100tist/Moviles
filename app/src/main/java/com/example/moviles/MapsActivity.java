@@ -121,7 +121,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ubicacion.put("lon", location.getLongitude());
                 Map<String, Object> ubicacionEmergencia = new HashMap<>();
                 usuario = new Usuario("JJF", "correo@gmail.com","contrasena", ubicacion, ubicacionEmergencia );
-                Query query = db.collection("usuarios").whereEqualTo("correoUsuario", usuario.getCorreoUsuario());
+                Query query = db.collection("Usuarios").whereEqualTo("correoUsuario", usuario.getCorreoUsuario());
                 query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -132,7 +132,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             ubicacion.put("lat", location.getLatitude());
                             ubicacion.put("lon", location.getLongitude());
                             updates.put("ubicacion", ubicacion);
-                            documentSnapshot.getReference().update(ubicacion);
+                            documentSnapshot.getReference().update(updates);
                         }
                     }
                 });
