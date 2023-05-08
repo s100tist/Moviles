@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -27,6 +28,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.example.moviles.databinding.ActivityMapsBinding;
 import com.example.moviles.models.Usuario;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -59,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Dialog dialog;
 
     private List<Marker> mMarkerList = new ArrayList<>();
+    private FusedLocationProviderClient mFusedLocationClient;
     private Usuario usuario;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -69,6 +73,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FloatingActionButton fabPanico = findViewById(R.id.fabPanico);
         com.example.moviles.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -156,7 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ubicacion.put("lat", location.getLatitude());
                 ubicacion.put("lon", location.getLongitude());
                 Map<String, Object> ubicacionEmergencia = new HashMap<>();
-                usuario = new Usuario("corvo", "corvo@gmail.com","contrasena", ubicacion, ubicacionEmergencia );
+                usuario = new Usuario("JJCorvo", "correoajiji@gmail.com", "ajiji", ubicacion, ubicacionEmergencia);
                 Query query = db.collection("Usuarios").whereEqualTo("correoUsuario", usuario.getCorreoUsuario());
                 query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -179,10 +185,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
-
-
-
     public void editarPersona(View view) {
 
         Intent intent = new Intent(this, editarInformacionPersonal.class);
@@ -192,7 +194,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onClickShowAlert(View view) {
         dialog = new Dialog(MapsActivity.this);
         dialog.setContentView(R.layout.custom_dialog_panico);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background));
         }
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -206,6 +208,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 //Manda a guardar a la base de datos
+                Query query = db.collection("Usuarios").whereEqualTo("correoUsuario", usuario.getCorreoUsuario());
+                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+                        if (ActivityCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        // En un método para obtener la ubicación exacta
+                        mFusedLocationClient.getLastLocation()
+                                .addOnSuccessListener(location -> {
+                                    if (location != null) {
+                                        Map<String, Object> updates = new HashMap<>();
+                                        Map<String, Object> ubicacionEmergencia = new HashMap<>();
+                                        ubicacionEmergencia.put("lat", location.getLatitude());
+                                        ubicacionEmergencia.put("lon", location.getLongitude());
+
+                                        if (!queryDocumentSnapshots.isEmpty()) {
+                                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                            updates.put("ubicacionEmergencia", ubicacionEmergencia);
+                                            documentSnapshot.getReference().update(updates);
+                                        }
+                                        Toast.makeText(getApplicationContext(), "Tu ultima ubicación ha sido guardada", Toast.LENGTH_SHORT).show();
+                                        // Aquí puedes usar la ubicación exacta
+                                    } else {
+                                        // La ubicación es nula, no se pudo obtener
+                                        Log.e("Error", "La ubicación no se pudo obtener");
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Hubo un error al obtener la ubicación exacta
+                                    Log.e("Error ubicación","Hubo un error al momento de obtener la ultima ubicación");
+                                });
+
+                    }
+                });
                 dialog.dismiss();
             }
         });
@@ -213,6 +259,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         cancelarPanico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dialog.dismiss();
             }
         });
