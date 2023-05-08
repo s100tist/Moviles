@@ -20,16 +20,13 @@
         />
 
 
-
-
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab2"
+        android:id="@+id/fabPanico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:onClick="botonPanico"
+        android:onClick="onClickShowAlert"
+        app:backgroundTint="#CD3838"
         app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.904"
