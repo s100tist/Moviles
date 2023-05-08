@@ -29,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     Dialog dialog;
 
+    private Marker mMarker;
     private Usuario usuario;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -107,7 +109,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onLocationChanged(Location location) {
                 mMap.getUiSettings().setRotateGesturesEnabled(true);
                 LatLng miUbicacion = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(miUbicacion).title("ubicacion actual"));
+                db.collection("Usuarios").get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                    Map<String, Object> data = documentSnapshot.getData();
+                                    if (data.containsKey("ubicacion")) {
+                                        Map<String, Double> ubicacion = (Map<String, Double>) data.get("ubicacion");
+                                        double latitud = ubicacion.get("lat");
+                                        double longitud = ubicacion.get("lon");
+                                        LatLng latLng = new LatLng(latitud, longitud);
+                                        if (mMarker == null) {
+                                            mMarker = mMap.addMarker(new MarkerOptions().position(latLng));
+                                        } else {
+                                            mMarker.setPosition(latLng);
+                                        }
+                                    }
+                                }
+                            }
+                        });
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(miUbicacion)
