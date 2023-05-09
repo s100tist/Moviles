@@ -24,14 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="¡Alerta!"
+        android:text="¡Alert!"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <View
         android:id="@+id/divider"
@@ -63,44 +62,41 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="Si te encuentras en peligro, porfavor presiona el boton de si para guardar y avisar sobre tu ultima ubicación, si no, presiona cancelar"
-        android:textColor="@color/black"
+        android:text="If you are in danger, please press the help button to save and report your last location, otherwise press cancel."
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
 
 
     <Button
         android:id="@+id/btn_cancel"
-        android:background="@android:color/transparent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
 
-        android:text="Cancelar"
+        android:text="Cancel"
         android:textColor="@android:color/holo_blue_dark"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider2"
-        />
+        app:layout_constraintTop_toTopOf="@+id/divider2" />
 
     <Button
         android:id="@+id/btn_okey"
-        android:background="@android:color/transparent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ayuda"
+        android:background="@android:color/transparent"
+        android:text="Help"
         android:textColor="@android:color/holo_blue_dark"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toTopOf="@+id/divider2"
-        />
+        app:layout_constraintTop_toTopOf="@+id/divider2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
