@@ -132,6 +132,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                         // Eliminar todos los marcadores existentes
                         for (Marker marker : mMarkerList) {
+                            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+                                    String title = "Title";
+                                    String snippet = "ajiji";
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                                    builder.setTitle(title);
+                                    builder.setMessage(snippet);
+                                    builder.show();
+
+                                    return true;
+                                }
+                            });
                             marker.remove();
                         }
                         mMarkerList.clear();
