@@ -7,33 +7,28 @@
     tools:context=".editarInformacionPersonal">
 
 
-    <TextView
-        android:id="@+id/editarNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="120dp"
-        android:text="@string/editar_nombre"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/editarTextoNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/editar_nombre_de_usuario"
-        android:inputType="textShortMessage"
-        android:minHeight="48dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editarNombre"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_back_dark"
+        android:backgroundTint="#FAFAFA"
+        android:backgroundTintMode="src_over"
+        android:breakStrategy="simple"
+        android:drawableStart="@drawable/account"
+        android:hint="   Username"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/blackHint"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/editarIntereses"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editarNombre"
-        tools:ignore="MissingConstraints" />
-
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editarTitulo" />
 
     <TextView
         android:id="@+id/editarIntereses"
@@ -73,10 +68,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="#FFBB86FC"
+        android:backgroundTint="@color/details_color"
         android:onClick="actualizarInformacionPersonal"
         android:text="@string/actualizar"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/eliminarCuenta"
         app:layout_constraintStart_toStartOf="parent" />
@@ -86,10 +81,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="#FFBB86FC"
+        android:backgroundTint="@color/details_color"
         android:onClick="eliminarCuenta"
         android:text="@string/eliminar_cuenta"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/actualizarCuenta" />
