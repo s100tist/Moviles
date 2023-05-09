@@ -73,6 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FloatingActionButton fabPanico = findViewById(R.id.fabPanico);
         com.example.moviles.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        // Crear un HashMap con los intereses y sus categorías
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -176,7 +177,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ubicacion.put("lat", location.getLatitude());
                 ubicacion.put("lon", location.getLongitude());
                 Map<String, Object> ubicacionEmergencia = new HashMap<>();
-                usuario = new Usuario("JJCorvo", "correoajiji@gmail.com", "ajiji", ubicacion, ubicacionEmergencia);
+                ubicacionEmergencia.put("lat", 0);
+                ubicacionEmergencia.put("lon", 0);
+                HashMap<String, String> intereses = new HashMap<String, String>();
+                intereses.put("Gun Collecting","Collecting");
+                intereses.put("Gunsmithing","Arts & Crafts");
+                intereses.put("Gymnastics","Sports");
+                intereses.put("Gyotaku","Arts & Crafts");
+                intereses.put("Handwriting Analysis","Educational");
+                intereses.put("Herping","Pets");
+
+                usuario = new Usuario("Barajas", "raul@gmail.com", "LJAG", ubicacion, ubicacionEmergencia,intereses);
                 Query query = db.collection("Usuarios").whereEqualTo("correoUsuario", usuario.getCorreoUsuario());
                 query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override

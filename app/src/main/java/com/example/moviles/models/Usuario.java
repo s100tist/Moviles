@@ -12,12 +12,16 @@ public class Usuario {
     private Map<String, Object> ubicacionEmergencia;
     private Map<String, Object> ubicacion;
 
-    public Usuario(String nombreUsuario, String correoUsuario, String contrasenaUsuario, Map<String, Object> ubicacion, Map<String, Object> ubicacionEmergencia) {
+    private Map<String,String> intereses;
+
+
+    public Usuario(String nombreUsuario, String correoUsuario, String contrasenaUsuario, Map<String, Object> ubicacion, Map<String, Object> ubicacionEmergencia,Map<String, String> intereses){
         this.nombreUsuario = nombreUsuario;
         this.correoUsuario = correoUsuario;
         this.contrasenaUsuario = contrasenaUsuario;
         this.ubicacion = ubicacion;
         this.ubicacionEmergencia = ubicacionEmergencia;
+        this.intereses = intereses;
 
     }
     public Usuario() {
@@ -26,6 +30,15 @@ public class Usuario {
         this.contrasenaUsuario = "";
         this.ubicacion = new HashMap <String, Object>() ;
         this.ubicacionEmergencia = new HashMap <String, Object>() ;
+        this.intereses = new HashMap <String, String>() ;
+    }
+
+    public Map<String, String> getIntereses() {
+        return intereses;
+    }
+
+    public void setIntereses(Map<String, String> intereses) {
+        this.intereses = intereses;
     }
 
     public String getNombreUsuario() {
