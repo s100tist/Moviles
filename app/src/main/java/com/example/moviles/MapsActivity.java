@@ -252,16 +252,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                             updates.put("ubicacionEmergencia", ubicacionEmergencia);
                                             documentSnapshot.getReference().update(updates);
                                         }
-                                        Toast.makeText(getApplicationContext(), "Tu ultima ubicación ha sido guardada", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Your last location has been saved", Toast.LENGTH_SHORT).show();
                                         // Aquí puedes usar la ubicación exacta
                                     } else {
                                         // La ubicación es nula, no se pudo obtener
-                                        Log.e("Error", "La ubicación no se pudo obtener");
+                                        Log.e("Error", "Location could not be obtained");
                                     }
                                 })
                                 .addOnFailureListener(e -> {
                                     // Hubo un error al obtener la ubicación exacta
-                                    Log.e("Error ubicación","Hubo un error al momento de obtener la ultima ubicación");
+                                    Log.e("Error Location","There was an error obtaining the last location.");
                                 });
 
                     }
