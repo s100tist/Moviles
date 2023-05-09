@@ -1,18 +1,8 @@
 <resources>
     <string name="app_name">Moviles</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="actualizar">Actualizar</string>
-    <string name="eliminar_cuenta">Eliminar Cuenta</string>
-    <string name="editar_informacion_personal">Editar Información Personal</string>
-    <string name="editar_nombre">Nombre</string>
-    <string name="editar_intereses">Intereses</string>
-    <string name="editar_musica">Musica</string>
-    <string name="editar_nombre_de_usuario">Nombre de Usuario</string>
-    <string name="editarDeportes">Deportes</string>
-    <string name="editar_musica_1">Country</string>
-    <string name="editar_musica_2">Rock</string>
-    <string name="editar_musica_3">Jazz</string>
-    <string name="editar_deportes_1">Footboll</string>
-    <string name="editar_deportes_2">Basketball</string>
-    <string name="editar_deportes_3">Volleyball</string>
+    <string name="actualizar">Update</string>
+    <string name="eliminar_cuenta">Delete account</string>
+    <string name="editar_informacion_personal">Customize profile</string>
+    <string name="editar_intereses">Interests</string>
 </resources>

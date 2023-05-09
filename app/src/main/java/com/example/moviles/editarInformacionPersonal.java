@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -401,22 +402,22 @@ public class editarInformacionPersonal extends AppCompatActivity {
         AlertDialog.Builder myAlertBuilder = new
                 AlertDialog.Builder(editarInformacionPersonal.this);
 
-        myAlertBuilder.setTitle("Actualizar Información");
-        myAlertBuilder.setMessage("Presiona 'ACEPTAR' para actualizar la información:");
+        myAlertBuilder.setTitle("Customize profile");
+        myAlertBuilder.setMessage("Press 'OK' to update the information:");
 
-        myAlertBuilder.setPositiveButton("Aceptar", new
+        myAlertBuilder.setPositiveButton("OK", new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // User clicked the OK button.
-                        Toast.makeText(getApplicationContext(), "Actualizacion realizada",
+                        Toast.makeText(getApplicationContext(), "Update done.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
-        myAlertBuilder.setNegativeButton("Cancelar", new
+        myAlertBuilder.setNegativeButton("Cancel", new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // User cancelled the dialog.
-                        Toast.makeText(getApplicationContext(), "Canceló la actualización.",
+                        Toast.makeText(getApplicationContext(), "Canceled the update.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -430,23 +431,26 @@ public class editarInformacionPersonal extends AppCompatActivity {
         AlertDialog.Builder myAlertBuilder = new
                 AlertDialog.Builder(editarInformacionPersonal.this);
 
-        myAlertBuilder.setTitle("Eliminar Cuenta");
-        myAlertBuilder.setMessage("Presiona 'SI' para eliminar la cuenta:");
+        myAlertBuilder.setTitle("Delete account");
+        myAlertBuilder.setMessage("Press 'YES' to delete the account:");
 
         myAlertBuilder.setPositiveButton("No", new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // User clicked the OK button.
-                        Toast.makeText(getApplicationContext(), "Canceló la eliminación.",
+                        Toast.makeText(getApplicationContext(), "Canceled the deletion.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
-        myAlertBuilder.setNegativeButton("Si", new
+        myAlertBuilder.setNegativeButton("YES", new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(editarInformacionPersonal.this, LoginActivity.class);
+                        startActivity(intent);
                         // User cancelled the dialog.
-                        Toast.makeText(getApplicationContext(), "La cuenta fue eliminada.",
+                        Toast.makeText(getApplicationContext(), "The account was deleted.",
                                 Toast.LENGTH_SHORT).show();
+
                     }
                 });
 

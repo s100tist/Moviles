@@ -8,44 +8,56 @@
 
 
     <TextView
-        android:id="@+id/editarNombre"
+        android:id="@+id/editarIntereses3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="120dp"
-        android:text="@string/editar_nombre"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editarTextoNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/editar_nombre_de_usuario"
-        android:inputType="textShortMessage"
-        android:minHeight="48dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editarNombre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editarNombre"
-        tools:ignore="MissingConstraints" />
-
-
-
-    <TextView
-        android:id="@+id/editarIntereses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:text="@string/editar_intereses"
+        android:layout_marginTop="28dp"
+        android:text="Username"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editarTitulo"
+        tools:ignore="MissingConstraints,UnknownId" />
+
+    <EditText
+        android:id="@+id/editarTextoNombre"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_back_dark"
+        android:backgroundTint="#FAFAFA"
+        android:backgroundTintMode="src_over"
+        android:breakStrategy="simple"
+        android:drawableStart="@drawable/account"
+        android:hint="   Username"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/blackHint"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/editarIntereses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editarIntereses3" />
+
+    <TextView
+        android:id="@+id/editarIntereses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:text="@string/editar_intereses"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editarIntereses3"
         tools:ignore="MissingConstraints,UnknownId" />
 
 
@@ -73,10 +85,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="#FFBB86FC"
+        android:backgroundTint="@color/details_color"
         android:onClick="actualizarInformacionPersonal"
         android:text="@string/actualizar"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/eliminarCuenta"
         app:layout_constraintStart_toStartOf="parent" />
@@ -86,10 +98,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="#FFBB86FC"
+        android:backgroundTint="@color/details_color"
         android:onClick="eliminarCuenta"
         android:text="@string/eliminar_cuenta"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/actualizarCuenta" />
